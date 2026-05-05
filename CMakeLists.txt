@@ -1,0 +1,36 @@
+cmake_minimum_required (VERSION 2.6...3.19)
+project(EvGen26)
+
+# check for in-source build, forbid it!
+if(CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR AND NOT MSVC_IDE)
+  message(FATAL_ERROR "\nIn-source build attempt detected!\n"
+    "Please create a new directory (e.g. build) and run `cmake ..`.\n"
+    "Also don't forget to delete the created CMakeCache.txt and CMakeFiles dir"
+    )
+endif()
+    
+include (cmake/settings.cmake)
+
+message(STATUS "*** Build Type:      " ${CMAKE_BUILD_TYPE})
+message(STATUS "*** Compiler Flags:  " ${DEFAULT_COMPILE_FLAGS})
+
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/" ${CMAKE_MODULE_PATH})
+# require a fairly recent ROOT version >5.30
+find_package(ROOT "5.30" REQUIRED)
+include_directories(${ROOT_INCLUDES})
+link_directories(${ROOT_LIBRARY_DIR})
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+
+# create executables
+
+include_directories(inc)
+
+#add_executable(EvGen26 src/EvGen26.cxx)
+#target_link_libraries(EvGen26 ${ROOT_LIBRARIES})
+
+add_executable(EvGen26Basic src/EvGen26Basic.cxx)
+target_link_libraries(EvGen26Basic ${ROOT_LIBRARIES})
+
+#add_executable(EvGen26Res src/EvGen26Res.cxx)
+#target_link_libraries(EvGen26Res ${ROOT_LIBRARIES})
