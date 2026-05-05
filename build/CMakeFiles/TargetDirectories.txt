@@ -1,3 +1,4 @@
+/home/dave/opt/EvGen26/build/CMakeFiles/EvGen26.dir
 /home/dave/opt/EvGen26/build/CMakeFiles/EvGen26Basic.dir
 /home/dave/opt/EvGen26/build/CMakeFiles/edit_cache.dir
 /home/dave/opt/EvGen26/build/CMakeFiles/rebuild_cache.dir

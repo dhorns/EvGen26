@@ -419,7 +419,7 @@ TString EvGen26Basic::GenNames() const
 	TString pstr[] = {"Px", "Py", "Pz", "Pt", "En"};
 	TString beam = "X_vtx:Y_vtx:Z_vtx:Px_bm:Py_bm:Pz_bm:Pt_bm:En_bm";
 	TString particles;
-	TString namesgit remote add origin git@github.com:dhorns/EvGen26.git;
+	TString names;
 
 	for ( UInt_t i = 0; i < fNPart; ++i)
 	{

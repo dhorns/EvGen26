@@ -26,8 +26,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
 include_directories(inc)
 
-#add_executable(EvGen26 src/EvGen26.cxx)
-#target_link_libraries(EvGen26 ${ROOT_LIBRARIES})
+add_executable(EvGen26 src/EvGen26.cxx)
+target_link_libraries(EvGen26 ${ROOT_LIBRARIES})
 
 add_executable(EvGen26Basic src/EvGen26Basic.cxx)
 target_link_libraries(EvGen26Basic ${ROOT_LIBRARIES})
