@@ -651,6 +651,14 @@ int EvGen26::Run()
 			e_mid = fEnergy[j];
 			e_bite = fDEnergy[j];
 		}
+		//after these conditions name will contain the output filepath
+		//check if filepath corresponds to real file
+		std::ifstream outputfile(name);
+		if(!outputfile.good()){
+			//file nonexistent: exit
+			std:: cout << "Error: output file does not exist" << std::endl;
+			exit(1);
+		}
 		TFile hfile( name, "RECREATE", "MC_Ntuple_File");
 
 		e_low = e_mid - e_bite;
