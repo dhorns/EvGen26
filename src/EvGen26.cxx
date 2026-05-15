@@ -651,7 +651,14 @@ int EvGen26::Run()
 			e_mid = fEnergy[j];
 			e_bite = fDEnergy[j];
 		}
+
 		TFile hfile( name, "RECREATE", "MC_Ntuple_File");
+
+		//check open hfile
+		if(hfile.IsZombie()){
+			std:: cout << "Error: Couldn't find output file: " << name << std::endl;
+			exit(1);
+		}
 
 		e_low = e_mid - e_bite;
 		e_high = e_mid + e_bite;
