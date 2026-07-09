@@ -5,11 +5,13 @@ Process: compton
 #Process: pi0
 #Process: eta
 #
-Target: p
+#Target: p
 #Target: c
 #Target: w
 #Target: he3
 #Target: he4
+Target: li6
+#Target: li7
 #
 #TargetLength: 40.0
 #TargetLength: 10.0
@@ -39,10 +41,10 @@ Throws: 100000
 # ENERGY
 #     Bite Lo Step Bins
 #Energy: 1 150 15 5
-#Energy: 2 200 10 1
+Energy: 2 200 10 1
 #Energy: 2 1000 10 1
 #Energy: 2 210 10 1
-Energy: 2 300 10 1
+#Energy: 2 300 10 1
 #Energy: 2 500 10 1
 #Energy: 2 250 10 1
 #Energy: 2 320 10 1
@@ -54,11 +56,12 @@ Energy: 2 300 10 1
 #Energy: 2 3000 10 1
 #
 # TAGGER CHANNELS
-#TagEngFile: tageng855.dat
-#TagEngFile: tageng883.dat
+#TagEngFile: tageng855_new.dat
+#TagEngFile: tageng883_new.dat
 #
 #Channels: 5 8
 #Channels: 85 85
+#Channels: 29 327
 #Channels: 0 327
 #Channels: 290 290
 #Channels: 305 305

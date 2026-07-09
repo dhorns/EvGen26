@@ -17,8 +17,8 @@ TargetLength: 5.0
 BeamSpotRadius: 0.50
 #
 #Throws: 10000
-#Throws: 100000
-Throws: 1000000
+Throws: 100000
+#Throws: 1000000
 #
 # ENERGY
 #     Bite Lo Step Bins

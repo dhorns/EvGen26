@@ -4,6 +4,7 @@
  * Object-oriented version of EvGen.cxx.
  *
  * DLH	May 5, 2026			First Version
+ * DLH	July 8, 2026		Adding Li-6 and Li-7
  *
  */
 
@@ -63,7 +64,7 @@ class EvGen26
 			TString tgt = "p";
 			Int_t chan_lo = 0;
 			Int_t chan_hi = 351;
-			TString te_file = "tageng855.dat";
+			TString te_file = "tageng855_new.dat";
 		};
 
 	private:
@@ -268,7 +269,8 @@ Bool_t EvGen26::ReadParams()
 	}
 
 	if ((fParam.tgt != "p") && (fParam.tgt != "c") && (fParam.tgt != "w")
-				&& (fParam.tgt != "he3") && (fParam.tgt != "he4")) {
+				&& (fParam.tgt != "he3") && (fParam.tgt != "he4")
+				&& (fParam.tgt != "li6") && (fParam.tgt != "li7")) {
 		std::cout << "Invalid Target String.\n";
 		std::exit(-1);
 	}
@@ -322,13 +324,12 @@ Bool_t EvGen26::ReadParams()
 			std::cout << "Error in tagger energy file " << fParam.te_file << std::endl;
 			std::exit(-1);
 		}
-		while (teFile >> i >> jnk >> eff >> jnk)
+		while (teFile >> i >> jnk >> eff >> deff >> jnk)
 		{
 			if (i < 328)
 			{
 				fEnergy[i] = eff;
-//				fDEnergy[i] = deff/2;
-				fDEnergy[i] = 2.0;
+				fDEnergy[i] = deff/2;
 			}
 		}
 		teFile.close();
@@ -347,7 +348,7 @@ Double_t EvGen26::ScatCTH(Double_t* x, Double_t* par) const
 	Double_t q, ff;
 	Double_t cth, ke;
 	Double_t ap, alpha, mtgt;
-	Double_t a, b;
+	Double_t a, b, c;
 
 	ap = 0;
 	alpha = 0;
@@ -425,11 +426,10 @@ Double_t EvGen26::ScatCTH(Double_t* x, Double_t* par) const
 	{
 		sth = std::sqrt(1 - Sqr(cth));
 		th = std::acos(cth);
-		a = 0.316;
-		b = 0.681;
+		b = 0.528;
 		mtgt = kM_HE3_MEV;
 		q = RecoilP(ke, mtgt, th, mpi);
-		ff = (1 - std::pow(Sqr(a*q), 6))*std::exp(-Sqr(b*q));
+		ff = std::exp(-b*q*q);
 
 		scat_cth = Sqr(sth*ff);
 	}
@@ -437,11 +437,35 @@ Double_t EvGen26::ScatCTH(Double_t* x, Double_t* par) const
 	{
 		sth = std::sqrt(1 - Sqr(cth));
 		th = std::acos(cth);
-		a = 0.316;
-		b = 0.681;
+		b = 0.352;
 		mtgt = kM_HE4_MEV;
 		q = RecoilP(ke, mtgt, th, mpi);
-		ff = (1 - std::pow(Sqr(a*q), 6))*std::exp(-Sqr(b*q));
+		ff = std::exp(-b*q*q);
+
+		scat_cth = Sqr(sth*ff);
+	}
+	else if (fParam.tgt == "li6")
+	{
+		sth = std::sqrt(1 - Sqr(cth));
+		th = std::acos(cth);
+		a = 0.391;
+		b = 1.063;
+		c = 1.328;
+		mtgt = kM_LI6_MEV;
+		q = RecoilP(ke, mtgt, th, mpi);
+		ff = (2*std::exp(-a*q*q)+(1-b*q*q)*std::exp(-c*q*q))/3;
+
+		scat_cth = Sqr(sth*ff);
+	}
+	else if (fParam.tgt == "li7")
+	{
+		sth = std::sqrt(1 - Sqr(cth));
+		th = std::acos(cth);
+		a = 0.180;
+		b = 0.694;
+		mtgt = kM_LI7_MEV;
+		q = RecoilP(ke, mtgt, th, mpi);
+		ff = (1 - a*q*q)*std::exp(-b*q*q);
 
 		scat_cth = Sqr(sth*ff);
 	}
@@ -584,6 +608,14 @@ int EvGen26::Run()
 	else if (fParam.tgt == "he4") {
 		ptag[0] = 47;
 		pm = kM_HE4_MEV/1000;
+	}
+	else if (fParam.tgt == "li6") {
+		ptag[0] = 61;
+		pm = kM_LI6_MEV/1000;
+	}
+	else if (fParam.tgt == "li7") {
+		ptag[0] = 67;
+		pm = kM_LI7_MEV/1000;
 	}
 
 	// Default scattered particle is one photon
