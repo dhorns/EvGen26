@@ -614,7 +614,7 @@ int EvGen26::Run()
 		pm = kM_LI6_MEV/1000;
 	}
 	else if (fParam.tgt == "li7") {
-		ptag[0] = 67;
+		ptag[0] = 62;
 		pm = kM_LI7_MEV/1000;
 	}
 

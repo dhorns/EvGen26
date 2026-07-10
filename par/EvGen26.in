@@ -10,13 +10,14 @@ Process: compton
 #Target: w
 #Target: he3
 #Target: he4
-Target: li6
-#Target: li7
+#Target: li6
+Target: li7
 #
 #TargetLength: 40.0
 #TargetLength: 10.0
-TargetLength: 5.0
+#TargetLength: 5.0
 #TargetLength: 2.0
+TargetLength: 1.0
 #TargetLength: 0.1
 #
 BeamSpotRadius: 0.5
@@ -41,10 +42,10 @@ Throws: 100000
 # ENERGY
 #     Bite Lo Step Bins
 #Energy: 1 150 15 5
-Energy: 2 200 10 1
+#Energy: 2 200 10 1
 #Energy: 2 1000 10 1
 #Energy: 2 210 10 1
-#Energy: 2 300 10 1
+Energy: 2 300 10 1
 #Energy: 2 500 10 1
 #Energy: 2 250 10 1
 #Energy: 2 320 10 1
