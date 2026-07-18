@@ -20,7 +20,21 @@ find_package(ROOT "5.30" REQUIRED)
 include_directories(${ROOT_INCLUDES})
 link_directories(${ROOT_LIBRARY_DIR})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
+
+
+# check which c++ standard is supported by the compiler
+include(CheckCXXCompilerFlag)
+CHECK_CXX_COMPILER_FLAG("-std=c++20" COMPILER_SUPPORTS_CXX20)
+CHECK_CXX_COMPILER_FLAG("-std=c++17" COMPILER_SUPPORTS_CXX17)
+if(COMPILER_SUPPORTS_CXX20)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
+  message(STATUS "C++20 will be used")
+elseif(COMPILER_SUPPORTS_CXX17)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+  message(STATUS "C++17 will be used")
+endif()
 
 # create executables
 
